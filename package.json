@@ -15,7 +15,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "cheerio": "^1.1.2",
-    "chokidar": "^4.0.3",
+    "chokidar": "^5.0.0",
     "dir-resolve": "^1.0.2",
     "fuse.js": "^7.1.0",
     "graceful-fs": "^4.2.11",
