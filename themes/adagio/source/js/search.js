@@ -18,7 +18,7 @@ async function initSearch() {
   const fuse = new Fuse(data, {
     keys: ['title', 'content'],
     includeScore: true,
-    threshold: 0.8, // 模糊程度（越低越严格）
+    threshold: 1, // 模糊程度（越低越严格）
     useExtendedSearch: true,
     minMatchCharLength: 0,
   })
