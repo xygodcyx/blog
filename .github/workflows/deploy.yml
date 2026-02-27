@@ -17,9 +17,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /root/code/blog
-            git fetch origin main
-            git reset --hard origin/main
-            bun install
+            git pull
             npm run build
             sudo rsync -av --delete /root/code/blog/public/ /opt/1panel/www/sites/blog.quhou.top/index/
             sudo chown -R 1000:1000 /opt/1panel/www/sites/blog.quhou.top/index/
