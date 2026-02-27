@@ -21,4 +21,4 @@ jobs:
             git reset --hard origin/main
             bun install
             npm run build
-            sudo rsync -av --delete /root/code/blog/public/ /opt/1panel/www/sites/quhou.top/index/
+            sudo rsync -av --delete /root/code/blog/public/ /opt/1panel/www/sites/blog.quhou.top/index/

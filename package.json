@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "hexo clean && hexo generate && hexo server",
     "new": "node tools/new.js",
     "build": "hexo clean && hexo generate",
     "clean": "hexo clean",
