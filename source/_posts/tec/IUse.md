@@ -68,6 +68,41 @@ excerpt: 记录一下自己常用的工具，将来换电脑时可以快速配�
 
 ## 一些配置文件
 
+### 服务器docker命令
+
+#### Netdata(机器不好别用, 很卡)
+
+``` sh
+docker run -d --name=netdata \
+  -p 19999:19999 \
+  -v netdataconfig:/etc/netdata \
+  -v netdatalib:/var/lib/netdata \
+  -v netdatacache:/var/cache/netdata \
+  -v /etc/passwd:/host/etc/passwd:ro \
+  -v /etc/group:/host/etc/group:ro \
+  -v /proc:/host/proc:ro \
+  -v /sys:/host/sys:ro \
+  -v /etc/os-release:/host/etc/os-release:ro \
+  --restart always \
+  --cap-add SYS_PTRACE \
+  --security-opt apparmor=unconfined \
+  netdata/netdata
+
+```
+
+#### Homarr
+
+``` sh
+docker run -d \
+  --name homarr \
+  --restart always \
+  -p 7575:7575 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /home/quhou/homarr/configs:/app/data/configs \
+  -v /home/quhou/homarr/icons:/app/public/icons \
+  ghcr.io/ajnart/homarr:latest
+```
+
 ### power shell 7.0
 
 ::: details setting.json
