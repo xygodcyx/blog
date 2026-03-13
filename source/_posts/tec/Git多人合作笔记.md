@@ -9,25 +9,41 @@ excerpt: 多人合作流程
 
 ## 初始配置
 
- 设置用户名：
+设置用户名：
 
- ``` bash
- git config --global  user.name "you name"
- ```
+``` bash
+git config --global  user.name "you name"
+```
 
- 设置邮箱：
+设置邮箱：
 
- ``` bash
- git config --global user.email "you email"
- ```
+``` bash
+git config --global user.email "you email"
+```
 
- 生成密钥：
+生成密钥：
 
- ``` bash
- ssh-keygen -t rsa -C "you email"
- ```
+``` bash
+ssh-keygen -t rsa -C "you email"
+```
+
+``` bash
+cat ~/.ssh/id_ed25519.pub
+```
 
 在密钥默认保存路径`C:\Users\Administrator\.ssh`中找到`id_rsa.pub`文件，复制其内容粘贴到 [SSH and GPG keys](https://github.com/settings/keys) 的SSH keys中，记得New SSH key
+
+把复制的公钥复制到到 [github key](https://github.com/settings/keys)
+
+``` bash
+ssh -T git@github.com
+```
+
+注意：如果你之前不知道为了什么把ssh连接强制替换成https了，那么很遗憾，你就无法通过ssh连接github了，解决办法是：
+
+``` bash
+git config --global --unset url.https://.insteadof
+```
 
 ## 常用命令
 
