@@ -12,6 +12,8 @@ hello，大家好呀，今天分享一款我新开发的工具，这个工具可
 
 ## 安装依赖
 
+你需要nodejs环境，在这里下载安装包：[nodejs官网](<https://node.org.cn/en>)
+
 ``` bash
 npm i chaoxing -g
 ```
