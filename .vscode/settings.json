@@ -1,0 +1,4 @@
+{
+    "pasteImage.insertPattern": "![${imageFileName}](../../assets/${currentFileNameWithoutExt}/${imageFileName})",
+    "pasteImage.path": "${projectRoot}/source/assets/${currentFileNameWithoutExt}"
+}
