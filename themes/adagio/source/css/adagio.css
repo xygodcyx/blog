@@ -529,14 +529,21 @@ pre,
   border: none !important;
 }
 
-.highlight .code {
+.highlight {
   position: relative;
+}
+
+figure.highlight table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  /* 这里负责横向滚动 */
 }
 
 .code-copy {
   position: absolute;
-  top: 6px;
   right: 10px;
+  top: 0px;
   /* height: 30px; */
   border: none;
   outline: none;
@@ -546,12 +553,14 @@ pre,
   transition: opacity 0.2s;
   cursor: pointer;
   user-select: none;
+  z-index: 10;
 
   &:hover {
     opacity: 1;
   }
 }
 
-table td,table th{
+table td,
+table th {
   text-align: center;
 }
