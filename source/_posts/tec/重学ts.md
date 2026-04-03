@@ -57,13 +57,13 @@ if(s.kind === "circle"){
 
 学习方法：先用js函数写出来，再翻译成ts类型语法，遇到不会的就查，肯定可以写出来，因为ts的类型语法是图灵完备的，记得总结用到的知识点
 
-### pick
+### easy-pick
 
-题目描述：
+#### easy-pick题目描述
 
 ![20260402154847.png](../../assets/重学ts/20260402154847.png)
 
-答案
+#### easy-pick答案
 
 ``` ts
 type MyPick<T, K extends keyof T> = {
@@ -90,8 +90,142 @@ type MyPick<T, K extends keyof T> = {
  */
 ```
 
-#### pick知识点
+#### easy-pick知识点
 
 - [mapped文档](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content)
 
 - [indexed文档](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content)
+
+### easy-readonly
+
+#### easy-readonly题目描述
+
+![20260402173036.png](../../assets/重学ts/20260402173036.png)
+
+#### easy-readonly答案
+
+``` ts
+
+type MyReadonly<T> = {
+  readonly [K in keyof T]: T[K];
+};
+
+```
+
+#### easy-readonly知识点
+
+[readonly 修饰符](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#readonly-and-const)
+
+### easy-tuple-to-object
+
+#### easy-tuple-to-object题目描述
+
+![20260402182147.png](../../assets/重学ts/20260402182147.png)
+
+#### easy-tuple-to-object答案
+
+``` ts
+
+type TupleToObject<
+  T extends readonly (string | number | symbol)[],
+> = {
+  [P in T[number]]: P;
+};
+
+// function tupleToObject(tuple) {
+//   const obj: any = {};
+//   for (const key in tuple) {
+//     obj[tuple[key]] = tuple[key];
+//   }
+//   return obj;
+// }
+
+
+```
+
+#### easy-tuple-to-object知识点
+
+[T[number]遍历数组](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content)
+
+### easy-first
+
+#### easy-first题目描述
+
+![20260402184204.png](../../assets/重学ts/20260402184204.png)
+
+#### easy-first答案1- extends undefined
+
+```ts
+type First<T extends any[]> =T['length'] extends 0 ? never: T[0];
+```
+
+#### easy-first答案2-extends []
+
+```ts
+type First<T extends any[]> = T extends [] ? never : T[0];
+```
+
+#### easy-first答案3-infer
+
+```ts
+type First<T extends any[]> =
+  T extends [infer F, ...any[]] ? F : never;
+```
+
+#### easy-first知识点
+
+T["length"]可以获取传入的元组数组类型的长度
+
+[extends作为条件判断](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
+
+### medium-last
+
+#### medium-last题目描述
+
+![20260403110055.png](../../assets/重学ts/20260403110055.png)
+
+#### medium-last答案
+
+```ts
+type Last<T extends any[]> =
+  T extends [...any[], infer L] ? L : never;
+
+```
+
+#### medium-last知识点
+
+[infer提取类型](https://dev.to/leapcell/a-deep-dive-into-typescripts-infer-keyword-1o4b)
+
+### medium-omit
+
+#### medium-omit题目描述
+
+![20260403112140.png](../../assets/重学ts/20260403112140.png)
+
+#### medium-omit答案
+
+```ts
+type MyOmit<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? never : P]: T[P];
+};
+```
+
+#### medium-omit知识点
+
+如果as后面是never，则会忽略掉待as的P
+
+### easy-tuple-length
+
+#### easy-tuple-length题目描述
+
+![20260403130031.png](../../assets/重学ts/20260403130031.png)
+
+#### easy-tuple-length答案
+
+```ts
+type Length<T extends readonly any[]> = T['length'];
+```
+
+#### easy-tuple-length知识点
+
+使用 `readonly any[]` 作为元组数组的约束

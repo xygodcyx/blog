@@ -385,7 +385,6 @@ pre,
 
 .highlight .gutter {
   font-size: 95%;
-  line-height: 1.4rem;
   width: 30px;
 }
 
@@ -393,11 +392,11 @@ pre,
   padding-left: 6px;
   padding-right: 6px;
   color: #998;
+
 }
 
 .highlight .code {
   font-size: 95%;
-  line-height: 1.4rem;
   width: 100%;
 }
 
@@ -524,13 +523,9 @@ pre,
   padding-bottom: 0 !important;
 }
 
-.article-text code {
-  padding: 0 !important;
-  border: none !important;
-}
-
 .highlight {
   position: relative;
+  min-height: 60px;
 }
 
 figure.highlight table {
