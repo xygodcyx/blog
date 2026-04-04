@@ -1,6 +1,6 @@
 <% let bgImage=page.background || '/img/banner.jpg' %>
     <div class="jumbotron jumbotron-fluid" style="background: url('<%- bgImage %>') 80% 100% / contain no-repeat">
-        <div class="container">
+        <div class="container main-archive-title">
             <% if (page.link) { %>
                 <h1 class="mt-4 article-title page-title"><a href="<%- url_for(page.link) %>"><%- page.title %></a></h1>
                 <% } else { %>

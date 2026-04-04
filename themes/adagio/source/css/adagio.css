@@ -395,6 +395,8 @@ pre,
 
 }
 
+.main-archive {}
+
 .highlight .code {
   font-size: 95%;
   width: 100%;
@@ -558,4 +560,18 @@ figure.highlight table {
 table td,
 table th {
   text-align: center;
+}
+
+.toc-child {
+  padding-inline-start: 24px;
+}
+
+@media (min-width: 1200px) {
+  .main-archive {
+    max-width: 80%;
+  }
+
+  .main-archive-title {
+    max-width: 80%;
+  }
 }

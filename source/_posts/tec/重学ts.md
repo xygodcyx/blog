@@ -55,7 +55,8 @@ if(s.kind === "circle"){
 
 [视频教程](https://www.bilibili.com/video/BV1vY41187Tx)
 
-学习方法：先用js函数写出来，再翻译成ts类型语法，遇到不会的就查，肯定可以写出来，因为ts的类型语法是图灵完备的，记得总结用到的知识点
+学习方法：先用js函数写出来，再翻译成ts类型语法，遇到不会的就查，肯定:::
+可以写出来，因为ts的类型语法是图灵完备的，记得总结用到的知识点
 
 ### easy-pick
 
@@ -64,6 +65,8 @@ if(s.kind === "circle"){
 ![20260402154847.png](../../assets/重学ts/20260402154847.png)
 
 #### easy-pick答案
+
+::: details 看答案
 
 ``` ts
 type MyPick<T, K extends keyof T> = {
@@ -90,6 +93,8 @@ type MyPick<T, K extends keyof T> = {
  */
 ```
 
+:::
+
 #### easy-pick知识点
 
 - [mapped文档](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content)
@@ -104,6 +109,8 @@ type MyPick<T, K extends keyof T> = {
 
 #### easy-readonly答案
 
+::: details 看答案
+
 ``` ts
 
 type MyReadonly<T> = {
@@ -111,6 +118,8 @@ type MyReadonly<T> = {
 };
 
 ```
+
+:::
 
 #### easy-readonly知识点
 
@@ -123,6 +132,8 @@ type MyReadonly<T> = {
 ![20260402182147.png](../../assets/重学ts/20260402182147.png)
 
 #### easy-tuple-to-object答案
+
+::: details 看答案
 
 ``` ts
 
@@ -143,6 +154,8 @@ type TupleToObject<
 
 ```
 
+:::
+
 #### easy-tuple-to-object知识点
 
 [T[number]遍历数组](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content)
@@ -153,28 +166,40 @@ type TupleToObject<
 
 ![20260402184204.png](../../assets/重学ts/20260402184204.png)
 
-#### easy-first答案1- extends undefined
+#### easy-first答案1
+
+::: details 看答案1- extends undefined
 
 ```ts
 type First<T extends any[]> =T['length'] extends 0 ? never: T[0];
 ```
 
-#### easy-first答案2-extends []
+:::
+
+#### easy-first答案2
+
+::: details 看答案2-extends []
 
 ```ts
 type First<T extends any[]> = T extends [] ? never : T[0];
 ```
 
-#### easy-first答案3-infer
+:::
+
+#### easy-first答案3
+
+::: details 看答案3-infer
 
 ```ts
 type First<T extends any[]> =
   T extends [infer F, ...any[]] ? F : never;
 ```
 
+:::
+
 #### easy-first知识点
 
-T["length"]可以获取传入的元组数组类型的长度
+`T["length"]`可以获取传入的元组数组类型的长度
 
 [extends作为条件判断](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
 
@@ -186,11 +211,15 @@ T["length"]可以获取传入的元组数组类型的长度
 
 #### medium-last答案
 
+::: details 看答案
+
 ```ts
 type Last<T extends any[]> =
   T extends [...any[], infer L] ? L : never;
 
 ```
+
+:::
 
 #### medium-last知识点
 
@@ -204,11 +233,15 @@ type Last<T extends any[]> =
 
 #### medium-omit答案
 
+::: details 看答案
+
 ```ts
 type MyOmit<T, K extends keyof T> = {
   [P in keyof T as P extends K ? never : P]: T[P];
 };
 ```
+
+:::
 
 #### medium-omit知识点
 
@@ -222,10 +255,242 @@ type MyOmit<T, K extends keyof T> = {
 
 #### easy-tuple-length答案
 
+::: details 看答案
+
 ```ts
 type Length<T extends readonly any[]> = T['length'];
 ```
 
+:::
+
 #### easy-tuple-length知识点
 
 使用 `readonly any[]` 作为元组数组的约束
+
+### easy-exclude
+
+#### easy-exclude题目描述
+
+![20260404111436.png](../../assets/重学ts/20260404111436.png)
+
+#### easy-exclude答案
+
+::: details 看答案
+
+```ts
+type MyExclude<T, U> = T extends U ? never : T;
+```
+
+:::
+
+#### easy-exclude知识点
+
+`分布式条件类型 (Distributive Conditional Types)`: `T extends U` , 当T是联合类型时，会启动`T.map(t=>t extends U)`来遍历T的所有类型是否与U相等，如果相等则返回 ? 后面的，而never | 任何类型都会返回never所以如果相等则直接从类型列表中剔除反之则返回自身
+
+`'a' | never = never`
+
+### easy-awaited
+
+#### easy-awaited题目描述
+
+![20260404120429.png](../../assets/重学ts/20260404120429.png)
+
+#### easy-awaited答案
+
+::: details 看答案
+
+```ts
+type MyAwaited<T> =
+  T extends (
+    {
+      then: (onfulfilled: (arg: infer U) => any) => any;
+    }
+  ) ?
+    MyAwaited<U>
+  : T;
+```
+
+:::
+
+#### easy-awaited知识点
+
+类型的递归写法, 以及`infer`的更高理解（提取参数类型）
+
+### medium-pickbytype
+
+#### medium-pickbytype题目描述
+
+![20260404122552.png](../../assets/重学ts/20260404122552.png)
+
+#### medium-pickbytype答案
+
+::: details 看答案
+
+```ts
+type PickByType<T, U> = {
+  [P in keyof T as T[P] extends U ? P : never]: T[P];
+};
+```
+
+:::
+
+#### medium-pickbytype知识点
+
+`as`的用法，以及深刻理解在类型中`never的作用`
+
+### easy-if
+
+#### easy-if题目描述
+
+![20260404130138.png](../../assets/重学ts/20260404130138.png)
+
+#### easy-if答案
+
+::: details 看答案
+
+```ts
+type If<C extends boolean, T, F> = C extends true ? T : F;
+```
+
+:::
+
+#### easy-if知识点
+
+`extends`的约束与逻辑判断双重用法
+
+### easy-concat
+
+#### easy-concat题目描述
+
+![20260404130922.png](../../assets/重学ts/20260404130922.png)
+
+#### easy-concat答案
+
+::: details 看答案
+
+```ts
+type Concat<
+  T extends readonly any[],
+  U extends readonly any[],
+> = [...T, ...U];
+```
+
+:::
+
+#### easy-concat知识点
+
+`...T`与`T[number]`的区别
+
+同样是"打开T"
+
+`...T`的作用与js中相同，是完全且有序的展开T的所有类型
+
+`T[number]`则是起到遍历T的作用
+
+### easy-concat
+
+#### easy-concat题目描述
+
+![20260404130922.png](../../assets/重学ts/20260404130922.png)
+
+#### easy-concat答案
+
+::: details 看答案
+
+```ts
+type Concat<
+  T extends readonly any[],
+  U extends readonly any[],
+> = [...T, ...U];
+```
+
+:::
+
+#### easy-concat知识点
+
+`...T`与`T[number]`的区别
+
+同样是"打开T"
+
+`...T`的作用与js中相同，是完全且有序的展开T的所有类型
+
+`T[number]`则是起到遍历T的作用
+
+### easy-includes
+
+#### easy-includes题目描述
+
+![20260404142416.png](../../assets/重学ts/20260404142416.png)
+
+#### easy-includes答案1
+
+::: details 看答案
+
+```ts
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends (
+    <T>() => T extends Y ? 1 : 2
+  ) ?
+    true
+  : false;
+
+type Includes<T extends readonly any[], U> =
+  T extends [infer F, ...infer R] ?
+    Equal<U, F> extends true ?
+      true
+    : Includes<R, U>
+  : false;
+```
+
+:::
+
+#### easy-includes答案2
+
+::: details 看答案
+
+```ts
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends (
+    <T>() => T extends Y ? 1 : 2
+  ) ?
+    true
+  : false;
+
+type Includes<T extends readonly any[], U> =
+  {
+    [P in keyof T]: Equal<T[P], U>;
+  } extends false[] ?
+    false
+  : true;
+```
+
+:::
+
+#### easy-includes答案3
+
+::: details 看答案
+
+```ts
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends (
+    <T>() => T extends Y ? 1 : 2
+  ) ?
+    true
+  : false;
+
+type Includes<T extends readonly any[], U> =
+  true extends (
+    {
+      [P in keyof T]: Equal<T[P], U>;
+    }[number]
+  ) ?
+    true
+  : false;
+```
+
+:::
+
+#### easy-includes知识点
+
+- 类型的递归调用，从0比较到最后一位，使用infer提取出每次递归的第一位类型
+- 答案2、3: 整个mapping的遍历方式与比较方式
