@@ -16,7 +16,7 @@ date: 2026-04-02 13:26:31
 
 ### 筛选器联合类型
 
-``` ts
+```ts
 
 type Circle{
   kind: "circle";
@@ -32,11 +32,11 @@ type Shape = Circle | Square
 
 ```
 
-``` ts
+```ts
 
 // 使用分支语句收缩类型
 if(s.kind === "circle"){
-  s type is Circle 
+  s type is Circle
 }else if(s.kind === "square"){
   s type is Square
 }
@@ -68,11 +68,10 @@ if(s.kind === "circle"){
 
 ::: details 看答案
 
-``` ts
+```ts
 type MyPick<T, K extends keyof T> = {
-    [P in K]: T[P]
-};
-
+  [P in K]: T[P]
+}
 
 // 刷题思路，先写JS函数，再翻译成TS类型
 // function myPick(todo, keys) {
@@ -111,12 +110,10 @@ type MyPick<T, K extends keyof T> = {
 
 ::: details 看答案
 
-``` ts
-
+```ts
 type MyReadonly<T> = {
-  readonly [K in keyof T]: T[K];
-};
-
+  readonly [K in keyof T]: T[K]
+}
 ```
 
 :::
@@ -135,13 +132,12 @@ type MyReadonly<T> = {
 
 ::: details 看答案
 
-``` ts
-
+```ts
 type TupleToObject<
   T extends readonly (string | number | symbol)[],
 > = {
-  [P in T[number]]: P;
-};
+  [P in T[number]]: P
+}
 
 // function tupleToObject(tuple) {
 //   const obj: any = {};
@@ -150,8 +146,6 @@ type TupleToObject<
 //   }
 //   return obj;
 // }
-
-
 ```
 
 :::
@@ -171,7 +165,9 @@ type TupleToObject<
 ::: details 看答案1- extends undefined
 
 ```ts
-type First<T extends any[]> =T['length'] extends 0 ? never: T[0];
+type First<T extends any[]> = T['length'] extends 0
+  ? never
+  : T[0]
 ```
 
 :::
@@ -181,7 +177,7 @@ type First<T extends any[]> =T['length'] extends 0 ? never: T[0];
 ::: details 看答案2-extends []
 
 ```ts
-type First<T extends any[]> = T extends [] ? never : T[0];
+type First<T extends any[]> = T extends [] ? never : T[0]
 ```
 
 :::
@@ -191,8 +187,9 @@ type First<T extends any[]> = T extends [] ? never : T[0];
 ::: details 看答案3-infer
 
 ```ts
-type First<T extends any[]> =
-  T extends [infer F, ...any[]] ? F : never;
+type First<T extends any[]> = T extends [infer F, ...any[]]
+  ? F
+  : never
 ```
 
 :::
@@ -214,9 +211,9 @@ type First<T extends any[]> =
 ::: details 看答案
 
 ```ts
-type Last<T extends any[]> =
-  T extends [...any[], infer L] ? L : never;
-
+type Last<T extends any[]> = T extends [...any[], infer L]
+  ? L
+  : never
 ```
 
 :::
@@ -237,8 +234,8 @@ type Last<T extends any[]> =
 
 ```ts
 type MyOmit<T, K extends keyof T> = {
-  [P in keyof T as P extends K ? never : P]: T[P];
-};
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
 ```
 
 :::
@@ -258,7 +255,7 @@ type MyOmit<T, K extends keyof T> = {
 ::: details 看答案
 
 ```ts
-type Length<T extends readonly any[]> = T['length'];
+type Length<T extends readonly any[]> = T['length']
 ```
 
 :::
@@ -278,7 +275,7 @@ type Length<T extends readonly any[]> = T['length'];
 ::: details 看答案
 
 ```ts
-type MyExclude<T, U> = T extends U ? never : T;
+type MyExclude<T, U> = T extends U ? never : T
 ```
 
 :::
@@ -300,14 +297,11 @@ type MyExclude<T, U> = T extends U ? never : T;
 ::: details 看答案
 
 ```ts
-type MyAwaited<T> =
-  T extends (
-    {
-      then: (onfulfilled: (arg: infer U) => any) => any;
-    }
-  ) ?
-    MyAwaited<U>
-  : T;
+type MyAwaited<T> = T extends {
+  then: (onfulfilled: (arg: infer U) => any) => any
+}
+  ? MyAwaited<U>
+  : T
 ```
 
 :::
@@ -328,8 +322,8 @@ type MyAwaited<T> =
 
 ```ts
 type PickByType<T, U> = {
-  [P in keyof T as T[P] extends U ? P : never]: T[P];
-};
+  [P in keyof T as T[P] extends U ? P : never]: T[P]
+}
 ```
 
 :::
@@ -349,7 +343,7 @@ type PickByType<T, U> = {
 ::: details 看答案
 
 ```ts
-type If<C extends boolean, T, F> = C extends true ? T : F;
+type If<C extends boolean, T, F> = C extends true ? T : F
 ```
 
 :::
@@ -372,36 +366,7 @@ type If<C extends boolean, T, F> = C extends true ? T : F;
 type Concat<
   T extends readonly any[],
   U extends readonly any[],
-> = [...T, ...U];
-```
-
-:::
-
-#### easy-concat知识点
-
-`...T`与`T[number]`的区别
-
-同样是"打开T"
-
-`...T`的作用与js中相同，是完全且有序的展开T的所有类型
-
-`T[number]`则是起到遍历T的作用
-
-### easy-concat
-
-#### easy-concat题目描述
-
-![20260404130922.png](../../assets/重学ts/20260404130922.png)
-
-#### easy-concat答案
-
-::: details 看答案
-
-```ts
-type Concat<
-  T extends readonly any[],
-  U extends readonly any[],
-> = [...T, ...U];
+> = [...T, ...U]
 ```
 
 :::
@@ -428,18 +393,20 @@ type Concat<
 
 ```ts
 type Equal<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends (
-    <T>() => T extends Y ? 1 : 2
-  ) ?
-    true
-  : false;
+  (<T>() => T extends X ? 1 : 2) extends <
+    T,
+  >() => T extends Y ? 1 : 2
+    ? true
+    : false
 
-type Includes<T extends readonly any[], U> =
-  T extends [infer F, ...infer R] ?
-    Equal<U, F> extends true ?
-      true
+type Includes<T extends readonly any[], U> = T extends [
+  infer F,
+  ...infer R,
+]
+  ? Equal<U, F> extends true
+    ? true
     : Includes<R, U>
-  : false;
+  : false
 ```
 
 :::
@@ -450,18 +417,17 @@ type Includes<T extends readonly any[], U> =
 
 ```ts
 type Equal<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends (
-    <T>() => T extends Y ? 1 : 2
-  ) ?
-    true
-  : false;
+  (<T>() => T extends X ? 1 : 2) extends <
+    T,
+  >() => T extends Y ? 1 : 2
+    ? true
+    : false
 
-type Includes<T extends readonly any[], U> =
-  {
-    [P in keyof T]: Equal<T[P], U>;
-  } extends false[] ?
-    false
-  : true;
+type Includes<T extends readonly any[], U> = {
+  [P in keyof T]: Equal<T[P], U>
+} extends false[]
+  ? false
+  : true
 ```
 
 :::
@@ -472,20 +438,17 @@ type Includes<T extends readonly any[], U> =
 
 ```ts
 type Equal<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends (
-    <T>() => T extends Y ? 1 : 2
-  ) ?
-    true
-  : false;
+  (<T>() => T extends X ? 1 : 2) extends <
+    T,
+  >() => T extends Y ? 1 : 2
+    ? true
+    : false
 
-type Includes<T extends readonly any[], U> =
-  true extends (
-    {
-      [P in keyof T]: Equal<T[P], U>;
-    }[number]
-  ) ?
-    true
-  : false;
+type Includes<T extends readonly any[], U> = true extends {
+  [P in keyof T]: Equal<T[P], U>
+}[number]
+  ? true
+  : false
 ```
 
 :::
@@ -494,3 +457,65 @@ type Includes<T extends readonly any[], U> =
 
 - 类型的递归调用，从0比较到最后一位，使用infer提取出每次递归的第一位类型
 - 答案2、3: 整个mapping的遍历方式与比较方式
+
+### easy-push
+
+#### easy-push题目描述
+
+![20260405121601.png](../../assets/重学ts/20260405121601.png)
+
+#### easy-push答案
+
+::: details 看答案
+
+```ts
+type Push<T extends any[], U> = [...T, U]
+```
+
+:::
+
+#### easy-push知识点
+
+`...`解构对象
+
+### easy-unshift
+
+#### easy-unshift题目描述
+
+![20260405121957.png](../../assets/重学ts/20260405121957.png)
+
+#### easy-unshift答案
+
+::: details 看答案
+
+```ts
+type Unshift<T extends any[], U> = [U, ...T]
+```
+
+:::
+
+#### easy-unshift知识点
+
+`...`解构对象
+
+### easy-parameters
+
+#### easy-parameters题目描述
+
+![20260405122222.png](../../assets/重学ts/20260405122222.png)
+
+#### easy-parameters答案
+
+::: details 看答案
+
+```ts
+type MyParameters<T extends (...args: any[]) => any> =
+  T extends (...args: infer U) => any ? U : never
+```
+
+:::
+
+#### easy-parameters知识点
+
+函数参数的提取方式
+`infer`
