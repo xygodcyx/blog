@@ -122,6 +122,44 @@ type MyReadonly<T> = {
 
 [readonly 修饰符](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#readonly-and-const)
 
+### medium-readonly-2
+
+#### medium-readonly-2题目描述
+
+![20260408083543.png](../../assets/重学ts/20260408083543.png)
+
+#### medium-readonly-2答案
+
+::: details 看答案
+
+```ts
+//答案1
+type MyReadonly2<T, K extends keyof T = any> = {
+  readonly [P in keyof T as P extends K
+    ? P
+    : K extends never
+      ? P
+      : never]: T[P]
+} & {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+
+//答案2
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+  readonly [P in keyof T as P extends K ? P : never]: T[P]
+} & {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+```
+
+:::
+
+#### medium-readonly-2知识点
+
+`&`运算符的使用，用于合并类型
+`any`的用处，用于匹配任意类型(any不一定就一定不好)
+`类型参数的默认类型`,可以使用`任意`,用运算符算出来的也可以
+
 ### easy-tuple-to-object
 
 #### easy-tuple-to-object题目描述
@@ -498,24 +536,115 @@ type Unshift<T extends any[], U> = [U, ...T]
 
 `...`解构对象
 
-### easy-parameters
+### medium-return-type
 
-#### easy-parameters题目描述
+#### medium-return-type题目描述
 
-![20260405122222.png](../../assets/重学ts/20260405122222.png)
+![20260408082329.png](../../assets/重学ts/20260408082329.png)
 
-#### easy-parameters答案
+#### medium-return-type答案
 
 ::: details 看答案
 
 ```ts
-type MyParameters<T extends (...args: any[]) => any> =
-  T extends (...args: infer U) => any ? U : never
+type MyReturnType<T extends (...params: any[]) => any> =
+  T extends (...params: any[]) => infer R ? R : never
 ```
 
 :::
 
-#### easy-parameters知识点
+#### medium-return-type知识点
 
-函数参数的提取方式
-`infer`
+- 函数返回值的提取方式
+
+- `infer`的用法
+
+### medium-deep-readonly
+
+#### medium-deep-readonly题目描述
+
+![20260408095757.png](../../assets/重学ts/20260408095757.png)
+
+#### medium-deep-readonly答案
+
+::: details 看答案
+
+```ts
+//答案1
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: keyof T[P] extends never
+    ? T[P]
+    : DeepReadonly<T[P]>
+}
+
+//答案2
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends Function
+    ? T[P]
+    : T[P] extends object
+      ? DeepReadonly<T[P]>
+      : T[P]
+}
+```
+
+:::
+
+#### medium-deep-readonly知识点
+
+`keyof T`不仅可以拿到T的所有KEYS，还能用`keyof T extends never ? 原始类型 : 含key类型`判断一个类型是否是`KEY LIKE`类型，比如`数组`、`对象`、`MAP`、`SET`
+
+### medium-tuple-to-union
+
+#### medium-tuple-to-union题目描述
+
+![20260408103746.png](../../assets/重学ts/20260408103746.png)
+
+#### medium-tuple-to-union答案
+
+::: details 看答案
+
+```ts
+//答案1
+type TupleToUnion<T extends readonly any[]> = T[number]
+
+//答案2
+type TupleToUnion<T> = T extends Array<infer I> ? I : T
+```
+
+:::
+
+#### medium-tuple-to-union知识点
+
+- `T[number]`拆开数组/元组
+
+- `Array<T>`的类型自动推断，TS会将[1,"hello"]元组的类型推断为`Array<number | string>`，进而可以用infer取出`number | string`
+
+- `infer`从泛型中取出类型
+
+### medium-chainable-options
+
+#### medium-chainable-options题目描述
+
+![20260408104955.png](../../assets/重学ts/20260408104955.png)
+
+#### medium-chainable-options答案
+
+::: details 看答案
+
+```ts
+type Chainable<T = {}> = {
+  option<K extends string, V extends any>(
+    key: K extends keyof T ? never : K,
+    value: V,
+  ): Chainable<MyOmit<T, K> & { [P in K]: V }>
+  get(): T
+}
+```
+
+:::
+
+#### medium-chainable-options知识点
+
+- 对象中函数的泛型定义，可以拿到具体的值类型
+- [Omit](https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys) 剔除同键类型参数
+- 不同类型的合并与覆盖
