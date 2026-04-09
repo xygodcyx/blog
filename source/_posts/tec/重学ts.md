@@ -647,4 +647,50 @@ type Chainable<T = {}> = {
 
 - 对象中函数的泛型定义，可以拿到具体的值类型
 - [Omit](https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys) 剔除同键类型参数
-- 不同类型的合并与覆盖
+- 不同类型的合并与覆盖、类型的递归复写
+
+### medium-pop
+
+#### medium-pop题目描述
+
+![20260408153408.png](../../assets/重学ts/20260408153408.png)
+
+#### medium-pop答案
+
+::: details 看答案
+
+```ts
+type Pop<T extends any[]> = T extends [...infer R, infer _]
+  ? R
+  : []
+```
+
+:::
+
+#### medium-pop知识点
+
+`infer`的作用
+
+### medium-promise-all
+
+#### medium-promise-all题目描述
+
+![20260408155031.png](../../assets/重学ts/20260408155031.png)
+
+#### medium-promise-all答案
+
+::: details 看答案
+
+```ts
+declare function PromiseAll<T extends any[]>(
+  values: readonly [...T],
+): Promise<{
+  [P in keyof T]: MyAwaited<T[P]>
+}>
+```
+
+:::
+
+#### medium-promise-all知识点
+
+`[P in keyof T]` 不仅能遍历对象，也能遍历数组
