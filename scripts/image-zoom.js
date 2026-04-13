@@ -72,7 +72,6 @@ hexo.extend.filter.register(
                 justify-content: center;
                 border-radius: 50%;
                 background-color: rgba(255, 255, 255, 0.1);
-                padding-bottom: 6px;
             }
             
             .image-zoom-close:hover {
@@ -355,46 +354,6 @@ hexo.extend.filter.register(
                     
                     let currentIndex = 0;
                     let preloadedImages = new Map();
-
-                    let isUserScrollingThumbnails = false;  // 新增：标记用户是否正在手动滚动
-                    let scrollTimeout = null;                // 新增：滚动超时定时器
-                    let autoScrollEnabled = true;            // 新增：是否启用自动滚动
-
-                    // 在 initImageZoom 函数内，生成缩略图后添加事件监听（约第 240 行后）
-                    // 监听缩略图容器的滚动事件
-                    thumbnailContainer.addEventListener('scroll', function() {
-                        // 标记用户正在手动滚动
-                        isUserScrollingThumbnails = true;
-                        autoScrollEnabled = false;
-                        
-                        // 清除之前的定时器
-                        if (scrollTimeout) {
-                            clearTimeout(scrollTimeout);
-                        }
-                        
-                        // 2秒后重新启用自动滚动
-                        scrollTimeout = setTimeout(function() {
-                            isUserScrollingThumbnails = false;
-                            autoScrollEnabled = true;
-                        }, 2000);
-                    }, { passive: true });
-
-                    // 监听鼠标移入缩略图容器
-                    thumbnailContainer.addEventListener('mouseenter', function() {
-                        autoScrollEnabled = false;
-                        if (scrollTimeout) {
-                            clearTimeout(scrollTimeout);
-                        }
-                    });
-
-                    // 监听鼠标移出缩略图容器
-                    thumbnailContainer.addEventListener('mouseleave', function() {
-                        // 延迟重新启用
-                        scrollTimeout = setTimeout(function() {
-                            autoScrollEnabled = true;
-                            isUserScrollingThumbnails = false;
-                        }, 1000);
-                    });
                     
                     // 生成缩略图
                     function generateThumbnails() {
@@ -404,23 +363,7 @@ hexo.extend.filter.register(
                             thumb.src = img.src;
                             thumb.alt = img.alt;
                             thumb.className = 'thumbnail' + (index === currentIndex ? ' active' : '');
-                            thumb.addEventListener('click', () => {
-                                // 点击缩略图时，临时禁用自动滚动
-                                autoScrollEnabled = false;
-                                isUserScrollingThumbnails = true;
-                                
-                                // 显示图片
-                                showImage(index);
-                                
-                                // 1.5秒后重新启用自动滚动
-                                if (scrollTimeout) {
-                                    clearTimeout(scrollTimeout);
-                                }
-                                scrollTimeout = setTimeout(function() {
-                                    autoScrollEnabled = true;
-                                    isUserScrollingThumbnails = false;
-                                }, 1500);
-                            });
+                            thumb.addEventListener('click', () => showImage(index));
                             thumbnailContainer.appendChild(thumb);
                         });
                     }
@@ -479,46 +422,16 @@ hexo.extend.filter.register(
                         // 更新 UI
                         updateUI();
                         
-                         // ===== 改进的缩略图滚动逻辑 =====
-                        // 只在启用自动滚动且用户没有手动滚动时才自动滚动
-                        if (autoScrollEnabled && !isUserScrollingThumbnails) {
-                            const activeThumb = thumbnailContainer.children[currentIndex];
-                            smartScrollToThumbnail(activeThumb)
+                        // 滚动缩略图到可视区域
+                        const activeThumb = thumbnailContainer.children[currentIndex];
+                        if (activeThumb) {
+                            activeThumb.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'nearest', 
+                                inline: 'center' 
+                            });
                         }
-                        // ===== 改进结束 =====
                     
-                    }
-
-                    // 更智能的滚动函数
-                    function smartScrollToThumbnail(thumb) {
-                        if (!thumb) return;
-                        
-                        const container = thumbnailContainer;
-                        const containerRect = container.getBoundingClientRect();
-                        const thumbRect = thumb.getBoundingClientRect();
-                        
-                        // 检查是否完全可见
-                        const isFullyVisible = 
-                            thumbRect.left >= containerRect.left &&
-                            thumbRect.right <= containerRect.right;
-                        
-                        // 如果已经完全可见，不滚动
-                        if (isFullyVisible) return;
-                        
-                        // 计算需要滚动的距离
-                        const scrollLeft = container.scrollLeft;
-                        const thumbOffset = thumb.offsetLeft;
-                        const containerWidth = container.offsetWidth;
-                        const thumbWidth = thumb.offsetWidth;
-                        
-                        // 目标滚动位置（让缩略图居中）
-                        const targetScroll = thumbOffset - (containerWidth / 2) + (thumbWidth / 2);
-                        
-                        // 平滑滚动
-                        container.scrollTo({
-                            left: Math.max(0, targetScroll),
-                            behavior: 'smooth'
-                        });
                     }
                     
                     // 更新 UI 状态
@@ -604,7 +517,7 @@ hexo.extend.filter.register(
                    
                     // 点击主图片也可以关闭
                     zoomedImg.addEventListener('click', ()=>{
-                        // 滚动页面到对应的原图位置
+                         // 滚动页面到对应的原图位置
                         const targetImage = imageList[currentIndex].element;
                         if (targetImage) {
                             // 使用平滑滚动将原图滚动到视口中央
@@ -660,10 +573,16 @@ hexo.extend.filter.register(
                     let touchEndX = 0;
                     
                     overlay.addEventListener('touchstart', (e) => {
+                        if(e.target.classList.contains("thumbnail-nav") || e.target.classList.contains("thumbnail")){
+                            return;
+                        }
                         touchStartX = e.changedTouches[0].screenX;
                     }, {passive: true});
                     
                     overlay.addEventListener('touchend', (e) => {
+                        if(e.target.classList.contains("thumbnail-nav") || e.target.classList.contains("thumbnail")){
+                            return;
+                        }
                         touchEndX = e.changedTouches[0].screenX;
                         handleSwipe();
                     }, {passive: true});
