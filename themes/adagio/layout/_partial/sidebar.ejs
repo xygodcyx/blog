@@ -3,6 +3,10 @@
     <hr class="row">
 <% } %>
 
+<% if (theme.sidebar_archive) { %>
+    <%- partial('_sidebar/listarchive') %>
+    <hr class="row">
+<% } %>
 
 <% if (theme.sidebar_tag_cloud) { %>
     <%- partial('_sidebar/tags') %>
@@ -20,10 +24,7 @@
     <%- partial('_sidebar/contact') %>
     <hr class="row">
 <% } %>
-<% if (theme.sidebar_archive) { %>
-    <%- partial('_sidebar/listarchive') %>
-    <hr class="row">
-<% } %>
+
 <% if (theme.sidebar_friends) { %>
     <%- partial('_sidebar/friends') %>
     <hr class="row">
