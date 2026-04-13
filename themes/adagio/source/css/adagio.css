@@ -595,4 +595,7 @@ table th {
   .article-text img {
     max-width: 80%;
   }
+  .toc-container {
+    max-height: 100px;
+  }
 }
