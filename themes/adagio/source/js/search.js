@@ -13,7 +13,7 @@ async function initSearch() {
   )
 
   let lastFocusedElement = null
-  let selectedIndex = -1 // 当前选中的搜索结果索引
+  let selectedIndex = 0 // 当前选中的搜索结果索引
   let currentResults = [] // 当前显示的结果数据
 
   // 初始化 Fuse.js
@@ -171,7 +171,11 @@ async function initSearch() {
       })
       .join('')
 
-    selectedIndex = -1 // 重置选中索引
+    selectedIndex = 0 // 重置选中索引
+    const items = resultsBox.querySelectorAll(
+      '.search-result-item',
+    )
+    updateSelectedItem(items)
   }
 
   // 高亮函数（支持多个关键词）
