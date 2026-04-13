@@ -225,7 +225,7 @@
 }
 
 .search-result-item.selected .search-title {
-  color: #1e40af;
+  color: #93a8ec;
 }
 /* ===== 选中状态结束 ===== */
 
@@ -425,4 +425,8 @@ body.modal-open {
     background: #475569;
     border-color: #1e293b;
   }
+}
+
+#search-results > a.search-result-item:hover {
+  text-decoration: none;
 }
