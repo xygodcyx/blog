@@ -243,9 +243,13 @@ ol.toc {
 }
 
 .article-text img {
-  /* max-width: 100%; */
-  max-width: 750px;
+  width: fit-content;
+  max-width: 60%;
+  /* max-width: 750px; */
   height: auto;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .page-content p {
@@ -583,6 +587,12 @@ table th {
   }
 
   .main-archive-title {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 500px) {
+  .article-text img {
     max-width: 80%;
   }
 }
