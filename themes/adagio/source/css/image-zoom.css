@@ -1,3 +1,5 @@
+/* source/css/image-zoom.css */
+
 /* 图片放大遮罩层 */
 .image-zoom-overlay {
   display: none;
@@ -61,6 +63,7 @@
   justify-content: center;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
+  padding-bottom: 6px;
 }
 
 .image-zoom-close:hover {

@@ -1,3 +1,5 @@
+// source/js/image-zoom.js
+
 ;(function () {
   // 等待 DOM 加载完成
   if (document.readyState === 'loading') {
@@ -28,19 +30,16 @@
       'thumbnailContainer',
     )
 
-    // 如果元素不存在，动态创建
-    if (!overlay) {
-      document.body.insertAdjacentHTML(
-        'beforeend',
-        `${html.replace(/`/g, '\\\\`')}`,
-      )
-      return initImageZoom() // 重新初始化
-    }
+    // 如果元素不存在，直接返回（由 Hexo 插件动态创建）
+    if (!overlay) return
 
     // 获取所有文章图片
     const images = Array.from(
       document.querySelectorAll('.article-text img'),
     )
+
+    // 如果没有图片，返回
+    if (images.length === 0) return
 
     // 存储图片信息
     const imageList = images.map((img) => ({
@@ -50,7 +49,7 @@
     }))
 
     let currentIndex = 0
-    let preloadedImages = new Map()
+    const preloadedImages = new Map()
 
     // 生成缩略图
     function generateThumbnails() {
@@ -62,9 +61,20 @@
         thumb.className =
           'thumbnail' +
           (index === currentIndex ? ' active' : '')
-        thumb.addEventListener('click', () =>
-          showImage(index),
-        )
+        thumb.addEventListener('click', () => {
+          autoScrollEnabled = false
+          isUserScrollingThumbnails = true
+
+          showImage(index)
+
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout)
+          }
+          scrollTimeout = setTimeout(function () {
+            autoScrollEnabled = true
+            isUserScrollingThumbnails = false
+          }, 1500)
+        })
         thumbnailContainer.appendChild(thumb)
       })
     }
@@ -84,6 +94,15 @@
       preloadImage(index - 1)
       preloadImage(index)
       preloadImage(index + 1)
+    }
+
+    // 智能滚动缩略图
+    function smartScrollToThumbnail(thumb) {
+      thumb.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      })
     }
 
     // 显示指定索引的图片
@@ -123,15 +142,11 @@
       // 更新 UI
       updateUI()
 
-      // 滚动缩略图到可视区域
+      // 滚动缩略图
       const activeThumb =
         thumbnailContainer.children[currentIndex]
       if (activeThumb) {
-        activeThumb.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center',
-        })
+        smartScrollToThumbnail(activeThumb)
       }
     }
 
@@ -199,7 +214,7 @@
       overlay.classList.remove('active')
       document.body.style.overflow = ''
 
-      // 延迟清空图片，避免关闭动画看到图片变化
+      // 延迟清空图片
       setTimeout(() => {
         if (!overlay.classList.contains('active')) {
           zoomedImg.src = ''
@@ -213,7 +228,7 @@
       closeBtn.addEventListener('click', closeZoom)
     }
 
-    // 点击遮罩层关闭（但不包括导航按钮和缩略图）
+    // 点击遮罩层关闭
     overlay.addEventListener('click', function (e) {
       if (
         e.target === overlay ||
@@ -223,12 +238,10 @@
       }
     })
 
-    // 点击主图片也可以关闭
+    // 点击主图片关闭并定位
     zoomedImg.addEventListener('click', () => {
-      // 滚动页面到对应的原图位置
       const targetImage = imageList[currentIndex].element
       if (targetImage) {
-        // 使用平滑滚动将原图滚动到视口中央
         targetImage.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
@@ -270,7 +283,6 @@
           const targetImage =
             imageList[currentIndex].element
           if (targetImage) {
-            // 使用平滑滚动将原图滚动到视口中央
             targetImage.scrollIntoView({
               behavior: 'smooth',
               block: 'center',
@@ -298,9 +310,10 @@
     overlay.addEventListener(
       'touchstart',
       (e) => {
+        // 忽略缩略图区域的触摸
         if (
-          e.target.classList.contains('thumbnail-nav') ||
-          e.target.classList.contains('thumbnail-nav')
+          e.target.closest('.thumbnail-nav') ||
+          e.target.closest('.zoom-nav-btn')
         ) {
           return
         }
@@ -313,8 +326,8 @@
       'touchend',
       (e) => {
         if (
-          e.target.classList.contains('thumbnail-nav') ||
-          e.target.classList.contains('thumbnail-nav')
+          e.target.closest('.thumbnail-nav') ||
+          e.target.closest('.zoom-nav-btn')
         ) {
           return
         }
@@ -330,9 +343,9 @@
 
       if (Math.abs(diff) > swipeThreshold) {
         if (diff > 0) {
-          nextImage() // 向左滑动，下一张
+          nextImage()
         } else {
-          prevImage() // 向右滑动，上一张
+          prevImage()
         }
       }
     }
