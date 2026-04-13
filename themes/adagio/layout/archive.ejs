@@ -2,14 +2,27 @@
 <html lang="zh-cmn-Hans">
 <%- partial('_partial/head') %>
 
+<%
+  // 1. 动态获取当前页面的年份（如果 page.year 存在），否则默认为 2026
+  let targetYear = page.year ? parseInt(page.year) : 2026;
+  
+  // 2. 使用更稳健的筛选方式，确保转换日期为数值年份
+  let count = site.posts.filter(function(post) {
+    return parseInt(post.date.format('YYYY')) === targetYear;
+  }).length;
+%>
+
 <body>
     <%- partial('_partial/nav', {index: false}) %>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="mt-4 article-title page-title">ARCHIVE: <%- page.year %></h1>
+            <h1 class="mt-4 article-title page-title">ARCHIVE(<%- count %>): <%- page.year %></h1>
         </div>
     </div>
+
     <div class="container">
+        
+
         <div class="row mt-3">
             <div class="col-md-9">
                 <% page.posts.each(function(post) { %>
