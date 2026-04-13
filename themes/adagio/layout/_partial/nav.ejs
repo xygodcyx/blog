@@ -51,8 +51,8 @@
         </div>
         <% } %>
 
-            <div class="container d-none d-md-block my-navbar">
-                <nav class="navbar navbar-expand-sm navbar-light bg-transparent">
+            <div class="container d-none d-md-block">
+                <nav class="navbar navbar-expand-sm navbar-light bg-transparent my-navbar" >
                     <a class="navbar-brand <% if (index) { %>d-none<% } %>" href="<%- url_for('/') %>">
                         <% if (theme.logo_url) { %>
                             <img class="logo" src="<%- url_for(theme.logo_url) %>" />
@@ -67,7 +67,7 @@
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
+                        <div class="collapse navbar-collapse" id="navbarNav" >
                             <ul class="navbar-nav">
                                 <% for (let item of theme.navbar_items) { %>
                                     <% let path=page.path.replace('/','').replace('index.html',''); %>
@@ -77,14 +77,14 @@
                                             <a class="nav-link" href="<%- url_for(item.url) %>"><%- item.text %></a>
                                         </li>
                                         <% } %>
-                                            <li class="nav-item pl-2 pr-2">
-                                                <button class="search-btn open-search" id="open-search"
-                                                    title="搜索 (Ctrl+Shift+K)">
-                                                    <!-- <span class="search-icon">🔍</span> -->
-                                                    <span class="search-text">搜索</span>
-                                                    <span class="shortcut-key">Ctrl Shift K</span>
-                                                </button>
-                                            </li>
+                                        <li class="nav-item pl-2 pr-2">
+                                            <button class="search-btn open-search" id="open-search"
+                                                title="搜索 (Ctrl+Shift+K)">
+                                                <!-- <span class="search-icon">🔍</span> -->
+                                                <span class="search-text">搜索</span>
+                                                <span class="shortcut-key">Ctrl Shift K</span>
+                                            </button>
+                                        </li>
                             </ul>
                         </div>
                         <% } %>

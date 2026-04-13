@@ -122,7 +122,8 @@ html * {
 }
 
 .my-navbar {
-  position: absolute;
+  max-width: 100% !important;
+  display: flex;
 }
 
 #navbar-sm a {
