@@ -9,10 +9,24 @@ date: 2026-03-27 17:27:38
 
 ## Chaoxing - 超星静默自动刷课答题
 
+<style>
+  .icons img{
+    width: 158px;
+    height: 20px;
+  }
+  .icons p{
+   display:flex;
+  }
+</style>
+
+<div class="icons">
+
 [![Author](https://img.shields.io/badge/author-xygodcyx-orange)](https://github.com/xygodcyx)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![NPM Version](https://img.shields.io/npm/v/chaoxing)](https://www.npmjs.com/package/chaoxing)
 [![Build Tool: tsup](https://img.shields.io/badge/build-tsup-yellow)](https://tsup.egoist.dev/)
+
+</div>
 
 > **🛡️ 隐私与效率并重**：本项目专为超星（学习通）平台设计，通过 Playwright 自动化技术实现静默刷课与智能答题。采用高度脱敏的存储机制，确保你的账号隐私万无一失。
 
