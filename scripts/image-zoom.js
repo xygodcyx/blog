@@ -34,6 +34,14 @@ hexo.extend.filter.register(
         
         <div class="zoom-main-container">
             <img id="zoomedImage" class="zoomed-image" alt="zoomed image">
+            <!-- 新增：定位按钮（位于图片下方） -->
+            <button class="zoom-locate-btn" id="locateImageBtn" title="定位到原图 (双击图片 / Enter)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>定位</span>
+            </button>
         </div>
         
         <button class="zoom-nav-btn prev" id="prevImage" disabled>&#10094;</button>

@@ -42,6 +42,10 @@
     const zoomResetBtn =
       document.getElementById('zoomResetBtn')
 
+    const locateBtn = document.getElementById(
+      'locateImageBtn',
+    )
+
     // 如果元素不存在，直接返回（由 Hexo 插件动态创建）
     if (!overlay) return
 
@@ -135,6 +139,19 @@
     function zoomStep(delta) {
       scale = clampScale(scale + delta)
       applyTransform()
+    }
+
+    // 定位并关闭
+    function locateAndClose() {
+      const targetImage = imageList[currentIndex].element
+      if (targetImage) {
+        targetImage.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        })
+      }
+      closeZoom()
     }
 
     // ===== 鼠标/触摸滚轮缩放 =====
@@ -517,6 +534,14 @@
       })
     }
 
+    // 定位按钮事件
+    if (locateBtn) {
+      locateBtn.addEventListener('click', (e) => {
+        e.stopPropagation()
+        locateAndClose()
+      })
+    }
+
     // 点击遮罩层关闭
     overlay.addEventListener('click', function (e) {
       return
@@ -530,15 +555,7 @@
 
     // 双击图片关闭并定位
     zoomedImg.addEventListener('dblclick', () => {
-      const targetImage = imageList[currentIndex].element
-      if (targetImage) {
-        targetImage.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        })
-      }
-      closeZoom()
+      locateAndClose()
     })
 
     // 导航按钮
@@ -570,16 +587,7 @@
           break
         case 'Enter':
           e.preventDefault()
-          const targetImage =
-            imageList[currentIndex].element
-          if (targetImage) {
-            targetImage.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-              inline: 'center',
-            })
-          }
-          closeZoom()
+          locateAndClose()
           break
         case 'Home':
           e.preventDefault()

@@ -534,3 +534,67 @@
     right: 10px;
   }
 }
+
+/* 定位按钮 */
+.zoom-locate-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10001;
+  white-space: nowrap;
+}
+
+.zoom-locate-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.zoom-locate-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateX(-50%) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.zoom-locate-btn:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .zoom-locate-btn {
+    bottom: 80px; /* 避开缩略图区域 */
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .zoom-locate-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .zoom-locate-btn span {
+    display: inline; /* 移动端也显示文字 */
+  }
+}
+
+/* 当缩略图隐藏时调整位置 */
+@media (max-width: 768px) {
+  .thumbnail-nav[style*='display: none'] ~ .zoom-locate-btn,
+  .zoom-main-container .zoom-locate-btn {
+    bottom: 20px;
+  }
+}
