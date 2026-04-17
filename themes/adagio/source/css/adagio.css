@@ -193,8 +193,13 @@ html * {
   position: sticky;
   top: 0;
   max-height: 100vh;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
+}
+
+.toc {
+  overflow-y: auto;
+  max-height: 800px;
 }
 
 .toc-container,
@@ -597,6 +602,6 @@ table th {
     max-width: 80%;
   }
   .toc-container {
-    max-height: 100px;
+    max-height: 160px;
   }
 }
