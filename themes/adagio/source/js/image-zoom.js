@@ -39,6 +39,9 @@
     const zoomInBtn = document.getElementById('zoomInBtn')
     const zoomOutBtn = document.getElementById('zoomOutBtn')
 
+    const zoomResetBtn =
+      document.getElementById('zoomResetBtn')
+
     // 如果元素不存在，直接返回（由 Hexo 插件动态创建）
     if (!overlay) return
 
@@ -507,8 +510,16 @@
       })
     }
 
+    if (zoomResetBtn) {
+      zoomResetBtn.addEventListener('click', (e) => {
+        e.stopPropagation()
+        resetTransform()
+      })
+    }
+
     // 点击遮罩层关闭
     overlay.addEventListener('click', function (e) {
+      return
       if (
         e.target === overlay ||
         e.target.classList.contains('zoom-main-container')

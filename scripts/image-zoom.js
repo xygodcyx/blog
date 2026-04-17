@@ -23,6 +23,10 @@ hexo.extend.filter.register(
             <button class="zoom-scale-btn" id="zoomOutBtn" title="缩小 (滚轮向下)">−</button>
             <button class="zoom-scale-btn" id="zoomInBtn" title="放大 (滚轮向上)">+</button>
         </div>
+
+         <div class="zoom-reset-buttons">
+            <button class="zoom-reset-btn" id="zoomResetBtn" title="R">⟲</button>
+        </div>
         
         <div class="image-counter" id="imageCounter">1 / 1</div>
         <div class="image-caption" id="imageCaption"></div>

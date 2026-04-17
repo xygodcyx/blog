@@ -275,7 +275,7 @@
 
   .image-zoom-close {
     top: 15px;
-    right: 15px;
+    right: 10px;
     width: 40px;
     height: 40px;
     font-size: 30px;
@@ -473,5 +473,64 @@
 @media (max-width: 480px) {
   .zoom-scale-buttons {
     right: 55px;
+  }
+}
+
+/* 重置按钮组 */
+.zoom-reset-buttons {
+  position: absolute;
+  top: 75px; /* 位于旋转按钮下方 */
+  right: 35px;
+  display: flex;
+  gap: 8px;
+  z-index: 10001;
+}
+
+.zoom-reset-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zoom-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.zoom-reset-btn:active {
+  transform: scale(0.95);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .zoom-reset-buttons {
+    top: 65px; /* 位于旋转按钮下方 */
+    right: 35px;
+    gap: 6px;
+  }
+
+  .zoom-reset-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+}
+
+/* 确保关闭按钮和旋转按钮不重叠 */
+@media (max-width: 480px) {
+  .zoom-reset-buttons {
+    right: 10px;
   }
 }
