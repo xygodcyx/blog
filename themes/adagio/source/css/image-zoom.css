@@ -288,3 +288,190 @@
     max-width: 90%;
   }
 }
+
+/* 主图片容器允许内容溢出（因为缩放后可能超出） */
+.zoom-main-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible; /* 改为 visible 防止裁剪 */
+}
+
+/* 放大的图片 */
+.image-zoom-overlay .zoomed-image {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  transition: transform 0.05s ease-out; /* 拖拽时保持流畅 */
+  cursor: grab;
+  user-select: none;
+  pointer-events: auto;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.image-zoom-overlay .zoomed-image:active {
+  cursor: grabbing;
+}
+
+/* 缩放指示器 */
+.zoom-scale-indicator {
+  position: absolute;
+  top: 90px;
+  right: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  z-index: 10002;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zoom-scale-indicator.show {
+  opacity: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .zoom-scale-indicator {
+    top: 70px;
+    right: 15px;
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+
+  /* 放大图片在移动端的样式微调 */
+  .image-zoom-overlay .zoomed-image {
+    max-width: 100%;
+    max-height: 80%;
+  }
+}
+
+/* 旋转按钮组 */
+.zoom-rotate-buttons {
+  position: absolute;
+  top: 20px;
+  right: 90px; /* 位于关闭按钮左侧 */
+  display: flex;
+  gap: 8px;
+  z-index: 10001;
+}
+
+.zoom-rotate-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zoom-rotate-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.zoom-rotate-btn:active {
+  transform: scale(0.95);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .zoom-rotate-buttons {
+    top: 15px;
+    right: 65px;
+    gap: 6px;
+  }
+
+  .zoom-rotate-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+}
+
+/* 确保关闭按钮和旋转按钮不重叠 */
+@media (max-width: 480px) {
+  .zoom-rotate-buttons {
+    right: 55px;
+  }
+}
+
+/* 缩放按钮组 */
+.zoom-scale-buttons {
+  position: absolute;
+  top: 75px; /* 位于旋转按钮下方 */
+  right: 90px;
+  display: flex;
+  gap: 8px;
+  z-index: 10001;
+}
+
+.zoom-scale-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  border: none;
+  font-size: 28px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  line-height: 1;
+}
+
+.zoom-scale-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.zoom-scale-btn:active {
+  transform: scale(0.95);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .zoom-scale-buttons {
+    top: 65px;
+    right: 65px;
+    gap: 6px;
+  }
+
+  .zoom-scale-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .zoom-scale-buttons {
+    right: 55px;
+  }
+}
