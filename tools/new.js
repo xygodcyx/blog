@@ -20,3 +20,12 @@ if (!title) {
 execSync(`hexo new "${title}" -p ${dir}/${title}`, {
   stdio: 'inherit',
 })
+
+const filePath = path.resolve(
+  'source',
+  '_posts',
+  `${dir}/${title}.md`,
+)
+execSync(`code ${filePath}`, {
+  stdio: 'inherit',
+})

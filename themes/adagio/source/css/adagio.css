@@ -584,7 +584,7 @@ table th {
 }
 
 .toc-child {
-  padding-inline-start: 24px;
+  padding-inline-start: 8px;
 }
 
 @media (min-width: 1200px) {
@@ -603,5 +603,6 @@ table th {
   }
   .toc-container {
     max-height: 160px;
+    overflow-y: scroll;
   }
 }
