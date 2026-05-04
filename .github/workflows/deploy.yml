@@ -21,7 +21,24 @@ jobs:
             export PATH="$HOME/.bun/bin:$PATH"
 
             cd /root/code/blog
+
+            # 1. 重置本地所有改动（以远程为准）
+            git fetch origin
+            git reset --hard origin/main
+
+            # 2. 强制更新所有 submodule
+            git submodule sync --recursive
+            git submodule update --init --recursive --force
+
+            # 3. 让 submodule 切换到 main 分支并拉取最新
+            git submodule foreach 'git checkout main && git pull origin main'
+
+            # 4. 再次确保拉取远程最新
             git pull --recurse-submodules
+
+            # 5. 构建
             npm run build
+
+            # 6. 部署
             sudo rsync -av --delete /root/code/blog/public/ /opt/1panel/www/sites/blog.quhou.top/index/
             sudo chown -R 1000:1000 /opt/1panel/www/sites/blog.quhou.top/index/
