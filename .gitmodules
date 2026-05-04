@@ -1,3 +1,6 @@
 [submodule "themes/victorian-gazette"]
 	path = themes/victorian-gazette
 	url = git@github.com:xygodcyx/victorian-gazette-hexo-theme.git
+[submodule "source"]
+	path = source
+	url = git@github.com:xygodcyx/blog-source.git
