@@ -59,11 +59,11 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
-# highlight:
-#   enable: false # 是否启用代码高亮
-#   line_number: true # 显示行号
-#   auto_detect: true # 自动检测语言
-#   # tab_replace: ''  # 替换Tab为空格
+highlight:
+  enable: true # 是否启用代码高亮
+  line_number: true # 显示行号
+  auto_detect: true # 自动检测语言
+  tab_replace: '  ' # 替换Tab为空格
 
 # prism_plugin:
 #   mode: 'preprocess' # 预处理模式
@@ -71,10 +71,10 @@ future: true
 #   line_number: true # 显示行号
 #   custom_css: false # 禁用默认CSS（主题自带样式时用）
 
-syntax_highlight:
-  enable: false
-  theme: 'atom-one-dark' # 可选主题：github, solarized-light, etc
-  line_number: true
+# syntax_highlight:
+#   enable: false
+#   theme: 'atom-one-dark' # 可选主题：github, solarized-light, etc
+#   line_number: true
 
 prismjs:
   enable: false
@@ -120,7 +120,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: adagio
+theme: victorian-gazette
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -128,7 +128,6 @@ deploy:
   type: git
   repo: git@github.com:xygodcyx/blog.git
   branch: deploy
-
 
 server:
   compress: true # 开启压缩
@@ -146,7 +145,6 @@ markdown:
     # - markdown-it-task-lists
     # - markdown-it-footnote
     # - markdown-it-emoji
-
 
 marked:
   escape: false

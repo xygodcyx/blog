@@ -1,0 +1,3 @@
+[submodule "themes/victorian-gazette"]
+	path = themes/victorian-gazette
+	url = git@github.com:xygodcyx/victorian-gazette-hexo-theme.git
