@@ -368,7 +368,9 @@ type PickByType<T, U> = {
 
 #### medium-pickbytype知识点
 
-`as`的用法，以及深刻理解在类型中`never的作用`
+{% paranote "summary" "pickbytype知识点" %}
+{% marginalia "as" "强制转换类型和过滤类型的作用" %} 的用法，以及深刻理解在类型中`never的作用`
+{% endparanote %}
 
 ### easy-if
 

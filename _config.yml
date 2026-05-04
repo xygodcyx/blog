@@ -64,6 +64,8 @@ highlight:
   line_number: true # 显示行号
   auto_detect: true # 自动检测语言
   tab_replace: '  ' # 替换Tab为空格
+  wrap: true
+  hljs: true
 
 # prism_plugin:
 #   mode: 'preprocess' # 预处理模式

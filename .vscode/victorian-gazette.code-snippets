@@ -1,0 +1,215 @@
+{
+  // ==========================================
+  // 维多利亚号外主题 · Hexo Markdown 代码片段
+  // ==========================================
+
+  // ----- 文章 Front Matter -----
+  "Victorian Post Front Matter": {
+    "prefix": "vg-post",
+    "body": [
+      "---",
+      "title: ${1:文章标题}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "categories: ${2:散文随笔}",
+      "tags: [${3:标签1}, ${4:标签2}]",
+      "thumbnail: ${5:/images/placeholder.jpg}",
+      "description: ${6:文章副标题或摘要}",
+      "---",
+      "",
+      "$0",
+    ],
+    "description": "维多利亚号外 · 文章 Front Matter",
+  },
+
+  // ----- 段落旁注（右侧标注） -----
+  "Paranote Summary (Right)": {
+    "prefix": "vg-paranote",
+    "body": [
+      "{% paranote \"summary\" \"${1:标注文字}\" %}",
+      "${2:段落内容}",
+      "{% endparanote %}",
+    ],
+    "description": "段落旁注 · 金色摘要标记（右侧）",
+  },
+
+  // ----- 段落旁注（左侧标注） -----
+  "Paranote Citation (Left)": {
+    "prefix": "vg-paranote-left",
+    "body": [
+      "{% paranote \"citation\" \"${1:引用来源}\" \"left\" %}",
+      "${2:段落内容}",
+      "{% endparanote %}",
+    ],
+    "description": "段落旁注 · 暗红色引用标记（左侧）",
+  },
+
+  // ----- 段落旁注（编辑按语） -----
+  "Paranote Editorial": {
+    "prefix": "vg-paranote-editorial",
+    "body": [
+      "{% paranote \"editorial\" \"${1:编辑按语}\" %}",
+      "${2:段落内容}",
+      "{% endparanote %}",
+    ],
+    "description": "段落旁注 · 深绿色编辑按语（右侧）",
+  },
+
+  // ----- 词语旁批 -----
+  "Marginalia": {
+    "prefix": "vg-marginalia",
+    "body": "{% marginalia \"${1:词语}\" \"${2:注释内容}\" %}",
+    "description": "词语旁批 · 鼠标悬停显示注释",
+  },
+
+  // ----- 脚注引用 -----
+  "Footnote Reference": {
+    "prefix": "vg-fn",
+    "body": "{% fn %}",
+    "description": "脚注引用 · 自动编号上标",
+  },
+
+  // ----- 脚注列表容器 -----
+  "Footnotes Container": {
+    "prefix": "vg-footnotes",
+    "body": [
+      "{% footnotes %}",
+      "{% fnitem \"fn-${1:1}\" \"${2:脚注文字}\" %}",
+      "{% fnitem \"fn-${3:2}\" \"${4:脚注文字}\" %}",
+      "{% endfootnotes %}",
+    ],
+    "description": "脚注列表容器 · 含两条示例",
+  },
+
+  // ----- 单条脚注 -----
+  "Footnote Item": {
+    "prefix": "vg-fnitem",
+    "body": "{% fnitem \"fn-${1:1}\" \"${2:脚注文字}\" %}",
+    "description": "单条脚注",
+  },
+
+  // ----- 首字下沉 -----
+  "Drop Cap": {
+    "prefix": "vg-dropcap",
+    "body": "{% dropcap \"${1:首字}\" %}${2:后面的文字}",
+    "description": "首字下沉 · 文章开头使用",
+  },
+
+  // ----- 重点文字 -----
+  "Emphasis Text": {
+    "prefix": "vg-emphasis",
+    "body": "{% emphasis %}${1:重点文字}${% endemphasis %}",
+    "description": "重点文字 · 红色斜体加粗",
+  },
+
+  // 修正：正确的结束标签
+  "Emphasis Text (Fixed)": {
+    "prefix": "vg-em",
+    "body": "{% emphasis %}${1:重点文字}{% endemphasis %}",
+    "description": "重点文字 · 红色斜体加粗（修正版）",
+  },
+
+  // ----- 右浮动插图 -----
+  "Figure Right": {
+    "prefix": "vg-figureright",
+    "body": "{% figureright \"${1:/images/figure.jpg}\" \"${2:图注文字}\" %}",
+    "description": "右浮动插图 · 带图注",
+  },
+
+  // ----- 全宽插图 -----
+  "Figure Full": {
+    "prefix": "vg-figurefull",
+    "body": "{% figurefull \"${1:/images/figure.jpg}\" \"${2:图注文字}\" %}",
+    "description": "全宽居中插图 · 带图注",
+  },
+
+  // ----- 文章结尾装饰 -----
+  "Article Fin": {
+    "prefix": "vg-fin",
+    "body": "{% fin %}",
+    "description": "文章末尾装饰符 ❦",
+  },
+
+  // ----- 引用块 + 旁注 -----
+  "Blockquote with Paranote": {
+    "prefix": "vg-blockquote-paranote",
+    "body": [
+      "{% paranote \"citation\" \"${1:引用来源}\" \"left\" %}",
+      "> ${2:引用文字}",
+      "{% endparanote %}",
+    ],
+    "description": "引用块 + 左侧旁注",
+  },
+
+  // ----- 图片 + 段落旁注组合 -----
+  "Figure Right with Paranote": {
+    "prefix": "vg-figure-paranote",
+    "body": [
+      "{% paranote \"summary\" \"${1:图片说明}\" %}",
+      "{% figureright \"${2:/images/figure.jpg}\" \"${3:图注}\" %}",
+      "${4:段落文字}",
+      "{% endparanote %}",
+    ],
+    "description": "右浮动插图 + 段落旁注组合",
+  },
+
+  // ----- 完整文章结构 -----
+  "Victorian Full Article Structure": {
+    "prefix": "vg-article",
+    "body": [
+      "---",
+      "title: ${1:文章标题}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "categories: ${2:分类}",
+      "tags: [${3:标签}]",
+      "thumbnail: ${4:/images/cover.jpg}",
+      "---",
+      "",
+      "{% paranote \"summary\" \"${5:开篇摘要}\" %}",
+      "{% dropcap \"${6:首}\" %}${7:字后面的文字开始……}",
+      "{% endparanote %}",
+      "",
+      "{% paranote \"citation\" \"${8:引用来源}\" \"left\" %}",
+      "> ${9:一段引用文字}",
+      "{% endparanote %}",
+      "",
+      "{% figureright \"${10:/images/illustration.jpg}\" \"${11:插图说明}\" %}",
+      "",
+      "${12:继续正文内容……}",
+      "",
+      "{% emphasis %}${13:重点词句}{% endemphasis %}",
+      "",
+      "{% fn %}",
+      "",
+      "{% fin %}",
+      "",
+      "{% footnotes %}",
+      "{% fnitem \"fn-1\" \"${14:脚注内容}\" %}",
+      "{% endfootnotes %}",
+      "",
+      "$0",
+    ],
+    "description": "维多利亚号外 · 完整文章模板",
+  },
+
+  // ----- 简易文章结构（无脚注） -----
+  "Victorian Simple Article": {
+    "prefix": "vg-simple",
+    "body": [
+      "---",
+      "title: ${1:标题}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "categories: ${2:分类}",
+      "tags: [${3:标签}]",
+      "---",
+      "",
+      "{% paranote \"summary\" \"${4:摘要}\" %}",
+      "{% dropcap \"${5:首}\" %}${6:文字……}",
+      "{% endparanote %}",
+      "",
+      "$0",
+      "",
+      "{% fin %}",
+    ],
+    "description": "维多利亚号外 · 简易文章模板",
+  },
+}
