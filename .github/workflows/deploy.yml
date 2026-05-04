@@ -19,9 +19,9 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             export PATH="$HOME/.bun/bin:$PATH"
-            
+
             cd /root/code/blog
-            git pull
+            git pull --recurse-submodules
             npm run build
             sudo rsync -av --delete /root/code/blog/public/ /opt/1panel/www/sites/blog.quhou.top/index/
             sudo chown -R 1000:1000 /opt/1panel/www/sites/blog.quhou.top/index/
