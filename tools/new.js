@@ -17,7 +17,7 @@ if (!title) {
   process.exit(1)
 }
 
-execSync(`hexo new "${title}" -p ${dir}/${title}`, {
+execSync(`npx hexo new "${title}" -p ${dir}/${title}`, {
   stdio: 'inherit',
 })
 
@@ -26,6 +26,6 @@ const filePath = path.resolve(
   '_posts',
   `${dir}/${title}.md`,
 )
-execSync(`code ${filePath}`, {
+execSync(`nvim ${filePath}`, {
   stdio: 'inherit',
 })
