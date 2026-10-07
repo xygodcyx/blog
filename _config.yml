@@ -124,6 +124,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: victorian-gazette
+# theme: adagio
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
